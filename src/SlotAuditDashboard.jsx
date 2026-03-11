@@ -119,6 +119,12 @@ function getTier(r) {
 
 const data = RAW.map(r => ({ ...r, tier: getTier(r), detachRate: r.ins > 0 ? r.det / r.ins : 0 })).filter(r => r.tier !== null);
 
+// ── Display name helper ───────────────────────────────────────────────────
+function displayName(r) {
+  if (!r.region || r.region === "component" || r.region === "component2") return r.comp;
+  return `${r.comp} > ${r.region}`;
+}
+
 // ── Color system ──────────────────────────────────────────────────────────
 const TIER_COLORS = {
   "Slot candidate": "#0FA573",
@@ -217,13 +223,15 @@ function TierDistribution() {
 
 function HackSlotAlignment() {
   const hackRows = data.filter(r => String(r.hack).toUpperCase() === "Y");
+  const confirmedTiers = ["Slot candidate", "Investigate (possibly eligible)"];
+  const confirmed = hackRows.filter(r => confirmedTiers.includes(r.tier));
+  const misaligned = hackRows.filter(r => !confirmedTiers.includes(r.tier));
+  const totalHack = hackRows.length;
+  const alignedPct = Math.round((confirmed.length / totalHack) * 100);
+
   const hackByTier = {};
   hackRows.forEach(r => { hackByTier[r.tier] = (hackByTier[r.tier] || 0) + 1; });
   const hackData = TIER_ORDER.map(t => ({ name: t, value: hackByTier[t] || 0 })).filter(d => d.value > 0);
-  const totalHack = hackRows.length;
-  const candidateCount = hackByTier["Slot candidate"] || 0;
-  const possibleCount = hackByTier["Investigate (possibly eligible)"] || 0;
-  const alignedPct = Math.round(((candidateCount + possibleCount) / totalHack) * 100);
 
   return (
     <div>
@@ -239,17 +247,35 @@ function HackSlotAlignment() {
           </ResponsiveContainer>
         </div>
         <div style={{ flex: 1, minWidth: 300 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            {hackRows.map((r, i) => (
+          <p style={{ fontSize: 11, color: "#0FA573", fontFamily: "'JetBrains Mono', monospace", marginBottom: 8, marginTop: 0, letterSpacing: 0.5, fontWeight: 600 }}>FIRST MOVERS — {confirmed.length} regions</p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            {confirmed.map((r, i) => (
               <div key={i} style={{
                 background: "#1e2030", borderRadius: 6, padding: "8px 12px",
                 borderLeft: `3px solid ${TIER_COLORS[r.tier]}`, fontSize: 12
               }}>
-                <div style={{ color: "#E8E9ED", fontWeight: 500 }}>{r.comp}</div>
-                <div style={{ color: "#7A7E91", fontSize: 11 }}>{r.region} <span style={{ color: TIER_COLORS[r.tier], marginLeft: 4 }}>● {r.tier.split("(")[0].trim()}</span></div>
+                <div style={{ color: "#E8E9ED", fontWeight: 500 }}>{displayName(r)}</div>
+                <div style={{ color: "#7A7E91", fontSize: 11 }}><span style={{ color: TIER_COLORS[r.tier] }}>● {r.tier.split("(")[0].trim()}</span></div>
               </div>
             ))}
           </div>
+          {misaligned.length > 0 && (
+            <>
+              <p style={{ fontSize: 11, color: "#8B8FA3", fontFamily: "'JetBrains Mono', monospace", marginBottom: 8, marginTop: 20, letterSpacing: 0.5, fontWeight: 600 }}>HACK SLOTS TO RECONSIDER — {misaligned.length} regions</p>
+              <p style={{ fontSize: 12, color: "#5a5d6e", marginTop: 0, marginBottom: 8, lineHeight: 1.5 }}>These have existing hack slots, but the framework doesn't confirm them as slot-eligible. The workaround may have been premature — investigate whether the component design itself needs rethinking.</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                {misaligned.map((r, i) => (
+                  <div key={i} style={{
+                    background: "#1e2030", borderRadius: 6, padding: "8px 12px",
+                    borderLeft: `3px solid ${TIER_COLORS[r.tier]}`, fontSize: 12, opacity: 0.7
+                  }}>
+                    <div style={{ color: "#E8E9ED", fontWeight: 500 }}>{displayName(r)}</div>
+                    <div style={{ color: "#7A7E91", fontSize: 11 }}><span style={{ color: TIER_COLORS[r.tier] }}>● {r.tier.split("(")[0].trim()}</span></div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -263,7 +289,7 @@ function QPatternClustering() {
     const key = `${r.q1||"—"}${r.q2||"—"}${r.q3||"—"}${r.q4||"—"}`;
     if (!patterns[key]) patterns[key] = { q1: r.q1, q2: r.q2, q3: r.q3, q4: r.q4, count: 0, components: [] };
     patterns[key].count++;
-    patterns[key].components.push(`${r.comp} > ${r.region || "component"}`);
+    patterns[key].components.push(displayName(r));
   });
 
   const sorted = Object.values(patterns).sort((a, b) => b.count - a.count);
@@ -322,7 +348,7 @@ function DetachVsTier() {
   const scatterData = data
     .filter(r => r.ins > 10)
     .map(r => ({
-      name: `${r.comp} > ${r.region || "—"}`,
+      name: displayName(r),
       detachRate: Math.round(r.detachRate * 1000) / 10,
       inserts: r.ins,
       tier: r.tier,
@@ -373,15 +399,18 @@ function DetachVsTier() {
 }
 
 function InstanceVolumeAtRisk() {
-  const tierInstances = {};
-  const seenByTier = {};
+  // Dedup by parent component — assign to most actionable tier
+  const tierPriority = { "Slot candidate": 0, "Investigate (possibly eligible)": 1, "Investigate (likely ineligible)": 2, "Not eligible": 3 };
+  const compBest = {};
   data.forEach(r => {
-    if (!seenByTier[r.tier]) seenByTier[r.tier] = new Set();
     const key = `${r.lib}::${r.comp}`;
-    if (!seenByTier[r.tier].has(key)) {
-      seenByTier[r.tier].add(key);
-      tierInstances[r.tier] = (tierInstances[r.tier] || 0) + r.total;
+    if (!compBest[key] || tierPriority[r.tier] < tierPriority[compBest[key].tier]) {
+      compBest[key] = { tier: r.tier, total: r.total };
     }
+  });
+  const tierInstances = {};
+  Object.values(compBest).forEach(({ tier, total }) => {
+    tierInstances[tier] = (tierInstances[tier] || 0) + total;
   });
 
   const barData = TIER_ORDER.map(t => ({
@@ -463,7 +492,7 @@ function DataTable() {
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
           <thead style={{ position: "sticky", top: 0, background: "#1e2030", zIndex: 1 }}>
             <tr>
-              {["Lib", "Component", "Region", "Q1", "Q2", "Q3", "Q4", "Tier", "Hack?", "Detach%", "Ins(30d)", "Total"].map(h => (
+              {["Lib", "Component", "Q1", "Q2", "Q3", "Q4", "Tier", "Hack?", "Detach%", "Ins(30d)", "Total"].map(h => (
                 <th key={h} style={{ padding: "8px 6px", textAlign: "left", color: "#5B6AD0", fontFamily: "'JetBrains Mono', monospace", fontSize: 10, borderBottom: "1px solid #2a2d3a", letterSpacing: 0.5, fontWeight: 600 }}>{h}</th>
               ))}
             </tr>
@@ -472,8 +501,7 @@ function DataTable() {
             {filtered.map((r, i) => (
               <tr key={i} style={{ borderBottom: "1px solid #1e2030", background: i % 2 === 0 ? "transparent" : "#1a1c2808" }}>
                 <td style={{ padding: "6px", color: LIB_COLORS[r.lib], fontWeight: 500 }}>{r.lib === "Core" ? "C" : "GH"}</td>
-                <td style={{ padding: "6px", color: "#E8E9ED" }}>{r.comp}</td>
-                <td style={{ padding: "6px", color: "#7A7E91" }}>{r.region || "—"}</td>
+                <td style={{ padding: "6px", color: "#E8E9ED" }}>{displayName(r)}</td>
                 {[r.q1, r.q2, r.q3, r.q4].map((q, qi) => (
                   <td key={qi} style={{ padding: "6px", fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: q === null ? "#3a3d52" : String(q).toUpperCase() === "Y" ? "#D4652F" : "#0FA573", fontWeight: 600 }}>
                     {q === null ? "—" : String(q).toUpperCase()}
