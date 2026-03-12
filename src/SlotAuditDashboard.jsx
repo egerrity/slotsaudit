@@ -17,7 +17,7 @@ const RAW = [
   { lib:"Core", comp:"Menu", region:"component", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:4, ins:750, total:3344 },
   { lib:"Core", comp:"Text field", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:2, ins:433, total:52829 },
   { lib:"Core", comp:"Menu item", region:"component", pattern:"Hack Slot", hack:"Y", q1:"Y",q2:"N",q3:"N",q4:"N", det:9, ins:2294, total:12380 },
-  { lib:"Core", comp:"Menu item", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:9, ins:2294, total:12380 },
+  { lib:"Core", comp:"Menu item", region:"contents", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:9, ins:2294, total:12380 },
   { lib:"Core", comp:"Button", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"N",q3:"N",q4:"Y", det:37, ins:13603, total:44454 },
   { lib:"Core", comp:"Input control", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:19, ins:9970, total:45983 },
   { lib:"Core", comp:"Search field", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:2, ins:1526, total:9767 },
@@ -251,15 +251,27 @@ function HackSlotAlignment() {
         <div style={{ flex: 1, minWidth: 300 }}>
           <p style={{ fontSize: 11, color: "#0FA573", fontFamily: "'JetBrains Mono', monospace", marginBottom: 8, marginTop: 0, letterSpacing: 0.5, fontWeight: 600 }}>FIRST MOVERS — {confirmed.length} regions</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-            {confirmed.map((r, i) => (
+            {[...confirmed].sort((a, b) => {
+              const aQuickWin = a.region && a.region.toLowerCase().includes("content slot");
+              const bQuickWin = b.region && b.region.toLowerCase().includes("content slot");
+              const aScore = a.tier === "Slot candidate" ? (aQuickWin ? 0 : 1) : 2;
+              const bScore = b.tier === "Slot candidate" ? (bQuickWin ? 0 : 1) : 2;
+              return aScore - bScore;
+            }).map((r, i) => {
+              const isQuickWin = r.region && r.region.toLowerCase().includes("content slot");
+              return (
               <div key={i} style={{
                 background: "#1e2030", borderRadius: 6, padding: "8px 12px",
                 borderLeft: `3px solid ${TIER_COLORS[r.tier]}`, fontSize: 12
               }}>
-                <div style={{ color: "#E8E9ED", fontWeight: 500 }}>{displayName(r)}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ color: "#E8E9ED", fontWeight: 500 }}>{displayName(r)}</span>
+                  {isQuickWin && <span style={{ display: "inline-block", padding: "1px 6px", borderRadius: 9, fontSize: 9, fontWeight: 600, fontFamily: "'JetBrains Mono', monospace", background: "#5B6AD022", color: "#8B92D0", border: "1px solid #5B6AD044", letterSpacing: 0.3, whiteSpace: "nowrap" }}>QUICK WIN</span>}
+                </div>
                 <div style={{ color: "#7A7E91", fontSize: 11 }}><span style={{ color: TIER_COLORS[r.tier] }}>● {r.tier.split("(")[0].trim()}</span></div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
