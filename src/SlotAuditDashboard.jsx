@@ -29,19 +29,19 @@ const RAW = [
   { lib:"Core", comp:"Content Switcher", region:"control", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:866, total:3450 },
   { lib:"Core", comp:"Text area", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:27, total:743 },
   { lib:"Core", comp:"One Time Password", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:79, total:398 },
-  { lib:"Greenhouse", comp:"utility/picker", region:null, pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:8, ins:20, total:531 },
-  { lib:"Greenhouse", comp:"Modal", region:"content slot", pattern:"Hack slot / Instance swap", hack:"Y", q1:"Y",q2:"Y",q3:"N",q4:"N", det:28, ins:109, total:475 },
+  { lib:"Greenhouse", comp:"utility/picker", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:8, ins:20, total:531 },
+  { lib:"Greenhouse", comp:"Modal", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:28, ins:109, total:475 },
   { lib:"Greenhouse", comp:"Date picker", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:10, ins:47, total:430 },
   { lib:"Greenhouse", comp:"Reasoning accordion", region:"expanded > content slot", pattern:"Swap", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:2, ins:10, total:32 },
   { lib:"Greenhouse", comp:"Full-screen modal", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:4, ins:24, total:54 },
-  { lib:"Greenhouse", comp:"Popover", region:"component", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"Y",q3:"N",q4:"N", det:5, ins:34, total:206 },
+  { lib:"Greenhouse", comp:"Popover", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:5, ins:34, total:206 },
   { lib:"Greenhouse", comp:"Side sheet", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:11, ins:75, total:87 },
   { lib:"Greenhouse", comp:"Template/Generative", region:"content wrapper", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:4, ins:33, total:26 },
   { lib:"Greenhouse", comp:"Bottom sheet", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:42, ins:478, total:942 },
   { lib:"Greenhouse", comp:"Contextual drawer", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:3, ins:36, total:533 },
-  { lib:"Greenhouse", comp:"Modal with scrim", region:"content slot", pattern:"Hack slot / Instance swap", hack:"Y", q1:"Y",q2:"Y",q3:"N",q4:"N", det:21, ins:301, total:394 },
+  { lib:"Greenhouse", comp:"Modal with scrim", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:21, ins:301, total:394 },
   { lib:"Greenhouse", comp:"Table column", region:"(excluding header)", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:13, ins:315, total:3046 },
-
+  { lib:"Greenhouse", comp:"utility/text pair", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:5, ins:201, total:2208 },
   { lib:"Greenhouse", comp:"Side navigation", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"N",q4:"N", det:5, ins:240, total:2173 },
   { lib:"Greenhouse", comp:"Dialog", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:2, ins:101, total:691 },
   { lib:"Greenhouse", comp:"Nested table cell", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"N",q3:"N",q4:"N", det:12, ins:715, total:12888 },
@@ -52,13 +52,15 @@ const RAW = [
   { lib:"Greenhouse", comp:"Alert", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"N",q4:"N", det:5, ins:970, total:1695 },
   { lib:"Greenhouse", comp:"Alert", region:"alert icon", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:5, ins:970, total:1695 },
   { lib:"Greenhouse", comp:"Alert", region:"text + cta", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:5, ins:970, total:1695 },
-  { lib:"Greenhouse", comp:"Alert", region:"text + cta", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:5, ins:970, total:1695 },
+  { lib:"Greenhouse", comp:"Alert", region:"text + cta > text", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:5, ins:970, total:1695 },
   { lib:"Greenhouse", comp:"Alert", region:"close icon", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:5, ins:970, total:1695 },
   { lib:"Greenhouse", comp:"System response", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:2, ins:725, total:667 },
   { lib:"Greenhouse", comp:"List item", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:10, ins:4559, total:12423 },
   { lib:"Greenhouse", comp:"List item", region:"middle (text)", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:10, ins:4559, total:12423 },
-
-
+  { lib:"Greenhouse", comp:"Footer", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:4, ins:2053, total:3151 },
+  { lib:"Greenhouse", comp:"Footer", region:"slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"Y", det:4, ins:2053, total:3151 },
+  { lib:"Greenhouse", comp:"Footer", region:"button wrapper", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:4, ins:2053, total:3151 },
+  { lib:"Greenhouse", comp:"Type/Text pairing", region:"component", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:4, ins:2127, total:7269 },
   { lib:"Greenhouse", comp:"Mobile header", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:2, ins:1569, total:4973 },
   { lib:"Greenhouse", comp:"Table data cell", region:"component", pattern:"None", hack:"N", q1:"N",q2:"Y",q3:"Y",q4:"Y", det:37, ins:75901, total:113498 },
   { lib:"Greenhouse", comp:"Table header cell", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:3, ins:6543, total:12690 },
@@ -66,7 +68,7 @@ const RAW = [
   { lib:"Greenhouse", comp:"Inline system message", region:"component", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:99, total:186 },
   { lib:"Greenhouse", comp:"Content card", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"N",q3:"N",q4:"N", det:0, ins:8, total:9 },
   { lib:"Greenhouse", comp:"File group", region:"component", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:1, total:6 },
-
+  { lib:"Greenhouse", comp:"Skeleton loader / Custom", region:"component", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:1456, total:692 },
   { lib:"Greenhouse", comp:"Password Checklist", region:"component", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:6, total:69 },
   { lib:"Greenhouse", comp:"Filter selection group", region:"options", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"N", det:0, ins:7, total:12 },
   { lib:"Greenhouse", comp:"Message", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:40, total:86 },
@@ -81,19 +83,19 @@ const RAW = [
   { lib:"Greenhouse", comp:"Side sheet with scrim", region:"content slot", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:21, total:72 },
   { lib:"Greenhouse", comp:"Alert notice", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:1646, total:7228 },
   { lib:"Greenhouse", comp:"Breadcrumb", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:1505, total:783 },
-  { lib:"Greenhouse", comp:"Selection group / Switch group", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:14, total:13 },
-  { lib:"Greenhouse", comp:"Selection group / Switch group", region:"heading", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:14, total:13 },
-  { lib:"Greenhouse", comp:"Selection group / Switch group", region:"options", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:14, total:13 },
-  { lib:"Greenhouse", comp:"Selection group / Radio group", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:15, total:207 },
-  { lib:"Greenhouse", comp:"Selection group / Radio group", region:"heading", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:15, total:207 },
-  { lib:"Greenhouse", comp:"Selection group / Radio group", region:"component2", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:15, total:207 },
-  { lib:"Greenhouse", comp:"Selection group / Checkbox group", region:"heading", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:35, total:15 },
-  { lib:"Greenhouse", comp:"Selection group / Checkbox group", region:"options", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:35, total:15 },
-  { lib:"Greenhouse", comp:"Selection group / Checkbox group", region:"options2", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:35, total:15 },
+  { lib:"Greenhouse", comp:"Selection group / ⚪️ Switch group", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:14, total:13 },
+  { lib:"Greenhouse", comp:"Selection group / ⚪️ Switch group", region:"heading", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:14, total:13 },
+  { lib:"Greenhouse", comp:"Selection group / ⚪️ Switch group", region:"options", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:14, total:13 },
+  { lib:"Greenhouse", comp:"Selection group / 🔘 Radio group", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:15, total:207 },
+  { lib:"Greenhouse", comp:"Selection group / 🔘 Radio group", region:"heading", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:15, total:207 },
+  { lib:"Greenhouse", comp:"Selection group / 🔘 Radio group", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:15, total:207 },
+  { lib:"Greenhouse", comp:"Selection group / ✅ Checkbox group", region:"heading", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"N",q4:"N", det:0, ins:35, total:15 },
+  { lib:"Greenhouse", comp:"Selection group / ✅ Checkbox group", region:"options", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:35, total:15 },
+  { lib:"Greenhouse", comp:"Selection group / ✅ Checkbox group", region:"options", pattern:"None", hack:"N", q1:"N",q2:"N",q3:"Y",q4:"Y", det:0, ins:35, total:15 },
   { lib:"Greenhouse", comp:"Selection item", region:"Container", pattern:"None", hack:"Y", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:72, total:185 },
-  { lib:"Greenhouse", comp:"Selection item", region:"Container>(control)", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:72, total:185 },
-  { lib:"Greenhouse", comp:"Selection item", region:"Container>content", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"Y", det:0, ins:72, total:185 },
-  { lib:"Greenhouse", comp:"Selection item", region:"Container>contents>text", pattern:"Swap", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"Y", det:0, ins:72, total:185 },
+  { lib:"Greenhouse", comp:"Selection item", region:"Container > (control)", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:72, total:185 },
+  { lib:"Greenhouse", comp:"Selection item", region:"Container > content", pattern:"Hack Slot", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"Y", det:0, ins:72, total:185 },
+  { lib:"Greenhouse", comp:"Selection item", region:"Container > contents > text", pattern:"Swap", hack:"Y", q1:"N",q2:"N",q3:"N",q4:"Y", det:0, ins:72, total:185 },
   { lib:"Greenhouse", comp:"File dropzone", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:39, total:311 },
   { lib:"Greenhouse", comp:"File upload", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:45, total:152 },
   { lib:"Greenhouse", comp:"Phone number field", region:"component", pattern:"None", hack:"N", q1:"Y",q2:"Y",q3:"Y",q4:"Y", det:0, ins:3, total:162 },
@@ -259,23 +261,6 @@ function HackSlotAlignment() {
               </div>
             ))}
           </div>
-          {misaligned.length > 0 && (
-            <>
-              <p style={{ fontSize: 11, color: "#8B8FA3", fontFamily: "'JetBrains Mono', monospace", marginBottom: 8, marginTop: 20, letterSpacing: 0.5, fontWeight: 600 }}>HACK SLOTS TO RECONSIDER — {misaligned.length} regions</p>
-              <p style={{ fontSize: 12, color: "#5a5d6e", marginTop: 0, marginBottom: 8, lineHeight: 1.5 }}>These have existing hack slots, but the framework doesn't confirm them as slot-eligible. The workaround may have been premature — investigate whether the component design itself needs rethinking.</p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                {misaligned.map((r, i) => (
-                  <div key={i} style={{
-                    background: "#1e2030", borderRadius: 6, padding: "8px 12px",
-                    borderLeft: `3px solid ${TIER_COLORS[r.tier]}`, fontSize: 12, opacity: 0.7
-                  }}>
-                    <div style={{ color: "#E8E9ED", fontWeight: 500 }}>{displayName(r)}</div>
-                    <div style={{ color: "#7A7E91", fontSize: 11 }}><span style={{ color: TIER_COLORS[r.tier] }}>● {r.tier.split("(")[0].trim()}</span></div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
         </div>
       </div>
     </div>
@@ -299,7 +284,7 @@ function QPatternClustering() {
     <div>
       <SectionLabel num="03" title="Question-Pattern Clustering" subtitle={`${invRows.length} regions in the Investigate tiers. The dominant pattern (N-N-Y-Y) tells you most ambiguity comes from type + functionality concerns — not order or count. This shapes what kind of steering those components need.`} />
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        {sorted.slice(0, 6).map((p, i) => {
+        {sorted.map((p, i) => {
           const qs = [p.q1, p.q2, p.q3, p.q4];
           const barWidth = (p.count / sorted[0].count) * 100;
           return (
@@ -317,12 +302,12 @@ function QPatternClustering() {
                   </div>
                 ))}
               </div>
-              <div style={{ flex: 1, position: "relative", height: 28, background: "#1e2030", borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ flex: 1, position: "relative", minHeight: 28, background: "#1e2030", borderRadius: 4, overflow: "hidden" }}>
                 <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${barWidth}%`, background: "linear-gradient(90deg, #5B6AD033, #5B6AD018)", borderRadius: 4 }} />
-                <div style={{ position: "relative", display: "flex", alignItems: "center", height: "100%", paddingLeft: 10, gap: 8 }}>
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, fontWeight: 700, color: "#E8E9ED" }}>{p.count}</span>
-                  <span style={{ fontSize: 11, color: "#7A7E91", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                    {p.components.slice(0, 3).join(", ")}{p.components.length > 3 ? ` +${p.components.length - 3}` : ""}
+                <div style={{ position: "relative", display: "flex", alignItems: "flex-start", minHeight: 28, padding: "6px 10px", gap: 8 }}>
+                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, fontWeight: 700, color: "#E8E9ED", flexShrink: 0 }}>{p.count}</span>
+                  <span style={{ fontSize: 11, color: "#7A7E91", lineHeight: 1.5 }}>
+                    {p.components.join(", ")}
                   </span>
                 </div>
               </div>
@@ -551,7 +536,7 @@ export default function SlotAuditDashboard() {
           Native Slot Eligibility Analysis
         </h1>
         <p style={{ margin: "8px 0 0 0", fontSize: 14, color: "#7A7E91", lineHeight: 1.6, maxWidth: 720 }}>
-          101 regions across 2 libraries evaluated against the Essential Function Test (4 unevaluated regions excluded).
+          103 regions across 2 libraries evaluated against the Essential Function Test.
           This dashboard visualizes what needs native slots, what needs investigation, and why the rollout should follow a specific order.
         </p>
 
